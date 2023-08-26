@@ -3,13 +3,13 @@ import { notFound } from "next/navigation";
 
 export const revalidate = 60;
 
-export async function generateStaticParams() {
-  const { data: drinks } = await supabase.from("drinks").select("id");
+// export async function generateStaticParams() {
+//   const { data: drinks } = await supabase.from("drinks").select("id");
 
-  return drinks?.map(({ id }: { id: string }) => ({
-    id,
-  }));
-}
+//   return drinks?.map(({ id }: { id: string }) => ({
+//     id,
+//   }));
+// }
 
 export default async function Drink({
   params: { id },
