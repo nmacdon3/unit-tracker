@@ -1,7 +1,12 @@
 "use client";
 import { Drink } from "../page";
 import classnames from "classnames";
-import { Popover, PopoverTrigger, PopoverContent } from "@nextui-org/react";
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  Button,
+} from "@nextui-org/react";
 import Table from "./Table";
 
 const WEEK_DAYS = [
@@ -17,13 +22,10 @@ const WEEK_DAYS = [
 type WeekDayType = (typeof WEEK_DAYS)[number];
 
 const WeekDay = ({ day, drinks }: { day: WeekDayType; drinks: Drink[] }) => {
-  //variable that checks if the day is in the past
   const isPast = new Date().getDay() > WEEK_DAYS.indexOf(day);
-
-  //variable that determines how many days ago this weekday was
+  const isToday = new Date().getDay() === WEEK_DAYS.indexOf(day);
   const daysAgo = new Date().getDay() - WEEK_DAYS.indexOf(day);
 
-  //all drinks that happened 2 days ago relative to today
   const filteredDrinks = drinks.filter(
     (drink) =>
       new Date(drink.created_at).getDay() === new Date().getDay() - daysAgo
@@ -31,16 +33,18 @@ const WeekDay = ({ day, drinks }: { day: WeekDayType; drinks: Drink[] }) => {
 
   return (
     <Popover placement="bottom">
-      <PopoverTrigger>
-        <button
+      <PopoverTrigger disabled={daysAgo < 0}>
+        <Button
           disabled={daysAgo < 0}
           className={classnames(
-            "w-10 h-10 border  rounded text-lg flex items-center justify-center relative font-bold",
+            "w-10 h-10 border p-0 bg-transparent min-w-0  rounded text-lg flex items-center justify-center relative font-bold",
             isPast
-              ? "border-stone-400 text-stone-400"
-              : filteredDrinks.length > 0
-              ? "border-orange-200 text-orange-200"
-              : "bg-stone-50 text-stone-950"
+              ? filteredDrinks.length > 0
+                ? "border-orange-200 text-orange-200"
+                : "border-stone-500 text-stone-500"
+              : isToday
+              ? "bg-stone-50 text-stone-950"
+              : "border-stone-50 text-stone-50"
           )}
         >
           {day[0]}
@@ -49,7 +53,7 @@ const WeekDay = ({ day, drinks }: { day: WeekDayType; drinks: Drink[] }) => {
               {filteredDrinks.length}
             </div>
           )}
-        </button>
+        </Button>
       </PopoverTrigger>
       <PopoverContent className="bg-stone-700 text-2xl w-[35rem] flex flex-column items-start mt-2">
         <h4 className="font-3xl">
