@@ -1,8 +1,20 @@
 "use client";
-import { Drink, WeekDayType, WEEK_DAYS } from "../page";
+import { Drink } from "../page";
 import classnames from "classnames";
 import { Popover, PopoverTrigger, PopoverContent } from "@nextui-org/react";
 import Table from "./Table";
+
+const WEEK_DAYS = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+] as const;
+
+type WeekDayType = (typeof WEEK_DAYS)[number];
 
 const WeekDay = ({ day, drinks }: { day: WeekDayType; drinks: Drink[] }) => {
   //variable that checks if the day is in the past

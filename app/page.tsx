@@ -14,7 +14,7 @@ export interface Drink {
   created_at: string;
 }
 
-export const WEEK_DAYS = [
+const WEEK_DAYS = [
   "Sunday",
   "Monday",
   "Tuesday",
@@ -23,8 +23,6 @@ export const WEEK_DAYS = [
   "Friday",
   "Saturday",
 ] as const;
-
-export type WeekDayType = (typeof WEEK_DAYS)[number];
 
 //progress bar component that takes a value prop between 0 and 14 and fills the bar accordingly.
 const ProgressBar = ({ value }: { value: number }) => {
