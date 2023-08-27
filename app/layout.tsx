@@ -20,12 +20,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html className="bg-stone-950 text-stone-50 dark" lang="en">
       <body
-        className={classnames(
-          caveat.className,
-          "bg-stone-950 text-stone-50 text-3xl dark"
-        )}
+        // style={{ overscrollBehavior: "none" }}
+        className={classnames(caveat.className, "text-3xl")}
       >
         <Providers>{children}</Providers>
       </body>
