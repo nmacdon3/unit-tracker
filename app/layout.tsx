@@ -23,7 +23,7 @@ export default function RootLayout({
       <body
         className={classnames(
           caveat.className,
-          "bg-stone-950 text-stone-50 text-3xl p-20"
+          "bg-stone-950 text-stone-50 text-3xl"
         )}
       >
         {children}
