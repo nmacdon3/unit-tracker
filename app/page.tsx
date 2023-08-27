@@ -2,7 +2,7 @@ import Link from "next/link";
 import supabase from "~/utils/supabase";
 import classnames from "classnames";
 import Table from "./_components/Table";
-import { BsChevronDown } from "react-icons/bs";
+import WeekDay from "./_components/WeekDay";
 
 export const revalidate = 0;
 
@@ -13,6 +13,18 @@ export interface Drink {
   abv: number;
   created_at: string;
 }
+
+export const WEEK_DAYS = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+] as const;
+
+export type WeekDayType = (typeof WEEK_DAYS)[number];
 
 //progress bar component that takes a value prop between 0 and 14 and fills the bar accordingly.
 const ProgressBar = ({ value }: { value: number }) => {
@@ -28,48 +40,6 @@ const ProgressBar = ({ value }: { value: number }) => {
         )}
       ></div>
     </div>
-  );
-};
-
-const WEEK_DAYS = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-] as const;
-
-type WeekDay = (typeof WEEK_DAYS)[number];
-
-const WeekDay = ({ day, drinks }: { day: WeekDay; drinks: Drink[] }) => {
-  //variable that checks if the day is in the past
-  const isPast = new Date().getDay() > WEEK_DAYS.indexOf(day);
-
-  //variable that determines how many days ago this weekday was
-  const daysAgo = new Date().getDay() - WEEK_DAYS.indexOf(day);
-
-  //all drinks that happened 2 days ago relative to today
-  const filteredDrinks = drinks.filter(
-    (drink) =>
-      new Date(drink.created_at).getDay() === new Date().getDay() - daysAgo
-  );
-
-  return (
-    <button
-      disabled={daysAgo < 0}
-      className={classnames(
-        "w-10 h-10 border  rounded text-lg flex items-center justify-center",
-        isPast
-          ? "border-stone-400 text-stone-400"
-          : filteredDrinks.length > 0
-          ? "border-orange-200 text-orange-200"
-          : "border-stone-50"
-      )}
-    >
-      {day[0]}
-    </button>
   );
 };
 

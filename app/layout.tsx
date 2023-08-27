@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import classnames from "classnames";
 
 import { Caveat } from "next/font/google";
+import { Providers } from "./providers";
 
 const caveat = Caveat({
   subsets: ["latin"],
@@ -23,10 +24,10 @@ export default function RootLayout({
       <body
         className={classnames(
           caveat.className,
-          "bg-stone-950 text-stone-50 text-3xl"
+          "bg-stone-950 text-stone-50 text-3xl dark"
         )}
       >
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
