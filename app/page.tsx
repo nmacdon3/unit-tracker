@@ -1,6 +1,5 @@
 import Link from "next/link";
 import supabase from "@/utils/supabase";
-import NewDrink from "./NewDrink";
 
 export const revalidate = 0;
 
@@ -13,13 +12,13 @@ export default async function Drinks() {
 
   return (
     <>
+      <Link href="/add">+ Add Drink</Link>
       {drinks.map((drink) => (
         <p key={drink.id}>
-          <Link href={`/${drink.id}`}>{drink.type}</Link>
+          <Link href={`/${drink.id}`}>{drink.units}</Link>
           <br />
         </p>
       ))}
-      <NewDrink />
     </>
   );
 }
