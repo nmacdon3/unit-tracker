@@ -4,6 +4,7 @@ import classnames from "classnames";
 
 import { Caveat } from "next/font/google";
 import { Providers } from "./providers";
+import ProfileDropdown from "./_components/ProfileDropdown";
 
 const caveat = Caveat({
   subsets: ["latin"],
@@ -25,7 +26,13 @@ export default function RootLayout({
         // style={{ overscrollBehavior: "none" }}
         className={classnames(caveat.className, "text-3xl")}
       >
-        <Providers>{children}</Providers>
+        <Providers>
+          <header className="flex justify-between  py-4 px-4 sticky top-0 left-0">
+            <div></div>
+            <ProfileDropdown />
+          </header>
+          {children}
+        </Providers>
       </body>
     </html>
   );
