@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import supabase from "@/utils/supabase";
+import Link from "next/link";
 
 function convertToNumber(value: string) {
   if (value === "") {
@@ -40,11 +41,16 @@ const AddDrink = () => {
   };
 
   return (
-    <form onSubmit={addDrink} className="text-red-500">
-      <input value={volume} onChange={(e) => setVolume(e.target.value)} />
-      <input value={abv} onChange={(e) => setAbv(e.target.value)} />
-      <button>Add Drink</button>
-    </form>
+    <div>
+      <Link href="/">Cancel</Link>
+      <h1>Add Drink</h1>
+
+      <form onSubmit={addDrink} className="text-red-500">
+        <input value={volume} onChange={(e) => setVolume(e.target.value)} />
+        <input value={abv} onChange={(e) => setAbv(e.target.value)} />
+        <button>Add Drink</button>
+      </form>
+    </div>
   );
 };
 
