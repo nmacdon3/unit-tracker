@@ -30,7 +30,7 @@ const ProfileDropdown = () => {
         </Button>
       </PopoverTrigger>
       <PopoverContent
-        className={classnames("bg-stone-700 text-lg mt-2", roboto.className)}
+        className={classnames("bg-stone-800 text-lg mt-2", roboto.className)}
       >
         <div>My Account</div>
         <div>Logout</div>

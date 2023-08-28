@@ -17,7 +17,7 @@ const ThisWeek = ({ drinks }: { drinks: Drink[] }) => {
   const daysLeft = 7 - new Date().getDay();
 
   return (
-    <div className="absolute top-4 left-4">
+    <div className="absolute top-4 left-4 z-0">
       This Week
       <div className="flex  items-center gap-4 mt-2">
         {WEEK_DAYS.map((day) => (

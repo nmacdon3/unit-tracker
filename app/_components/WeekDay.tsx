@@ -52,7 +52,7 @@ const WeekDay = ({ day, drinks }: { day: WeekDayType; drinks: Drink[] }) => {
           )}
         </button>
       </PopoverTrigger>
-      <PopoverContent className="bg-stone-700 text-2xl w-[35rem] flex flex-column items-start mt-2">
+      <PopoverContent className="bg-stone-800 text-2xl w-[35rem] flex flex-column items-start mt-2">
         <h4 className="font-3xl">
           {day} ({filteredDrinks.length} drinks)
         </h4>

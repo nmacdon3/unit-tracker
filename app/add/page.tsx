@@ -5,17 +5,7 @@ import { useState } from "react";
 import Link from "next/link";
 
 import supabase from "~/utils/supabase";
-
-function convertToNumber(value: string) {
-  if (value === "") {
-    return 0;
-  }
-  return parseInt(value);
-}
-
-function calculateUnits(volume: number, abv: number) {
-  return (abv * volume) / 1000;
-}
+import { convertToNumber, calculateUnits } from "~/utils";
 
 const AddDrink = () => {
   const router = useRouter();
