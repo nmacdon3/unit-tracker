@@ -1,15 +1,20 @@
 "use client";
 
 import { TbBeerFilled } from "react-icons/tb";
-import { Button, Input, Tab, Tabs, useDisclosure } from "@nextui-org/react";
-import Modal from "./Modal";
-import { useState } from "react";
-import { calculateUnits, convertToNumber } from "~/utils";
-import supabase from "~/utils/supabase";
-import { useRouter } from "next/navigation";
-import { FaWineGlassAlt } from "react-icons/fa";
-import { LiaCocktailSolid } from "react-icons/lia";
+import { IconType } from "react-icons";
 import { GiSodaCan } from "react-icons/gi";
+import { LiaCocktailSolid } from "react-icons/lia";
+import { FaWineGlassAlt } from "react-icons/fa";
+import { useRouter } from "next/navigation";
+import { Button, Input, Tab, Tabs, useDisclosure } from "@nextui-org/react";
+import { Key, useState } from "react";
+
+import supabase from "~/utils/supabase";
+import { calculateUnits, convertToNumber } from "~/utils";
+
+import { DrinkType, MeasurementUnit } from "../page";
+
+import Modal from "./Modal";
 
 const DrinkInput = ({
   description,
@@ -39,6 +44,22 @@ const DrinkInput = ({
   );
 };
 
+const TabTitle = ({
+  tab,
+}: {
+  tab: {
+    icon: IconType;
+    type: DrinkType;
+  };
+}) => {
+  return (
+    <div className="flex items-center space-x-2 text-2xl">
+      <tab.icon />
+      <span className="capitalize">{tab.type}</span>
+    </div>
+  );
+};
+
 const AddDrinkModal = ({
   isOpen,
   onClose,
@@ -48,29 +69,49 @@ const AddDrinkModal = ({
 }) => {
   const router = useRouter();
 
-  const [pintVolume, setPintVolume] = useState<string>("473");
-  const [canVolume, setCanVolume] = useState<string>("375");
-  const [glassVolume, setGlassVolume] = useState<string>("12");
-  const [shotVolume, setShotVolume] = useState<string>("1");
-
-  const [pintAbv, setPintAbv] = useState<string>("5");
-  const [canAbv, setCanAbv] = useState<string>("5");
-  const [glassAbv, setGlassAbv] = useState<string>("12");
-  const [shotAbv, setShotAbv] = useState<string>("40");
+  const [volume, setVolume] = useState<string>("473");
+  const [abv, setAbv] = useState<string>("5");
+  const [drinkType, setDrinkType] = useState<DrinkType>("pint");
+  const [measurementUnit, setMeasurementUnit] = useState<MeasurementUnit>("ml");
 
   async function addDrink() {
-    //CHANGE THIS TO ACCOUNT FOR DIFFERENT VOLUMES
-    const numericVolume = convertToNumber(pintVolume);
-    const numericAbv = convertToNumber(pintAbv);
+    const numericVolume = convertToNumber(volume);
+    const numericAbv = convertToNumber(abv);
 
     await supabase.from("drinks").insert({
       volume: numericVolume,
       abv: numericAbv,
-      units: calculateUnits(numericVolume, numericAbv),
+      units: calculateUnits(numericVolume, numericAbv, measurementUnit),
+      drink_type: drinkType,
+      measurement_unit: measurementUnit,
     });
 
     router.refresh();
     onClose();
+  }
+
+  function handleDrinkSelect(newDrinkType: Key) {
+    if (newDrinkType === "pint") {
+      setDrinkType("pint");
+      setVolume("473");
+      setMeasurementUnit("ml");
+      setAbv("5");
+    } else if (newDrinkType === "can") {
+      setDrinkType("can");
+      setVolume("375");
+      setMeasurementUnit("ml");
+      setAbv("5");
+    } else if (newDrinkType === "glass") {
+      setDrinkType("glass");
+      setVolume("12");
+      setMeasurementUnit("oz");
+      setAbv("12");
+    } else {
+      setDrinkType("shot");
+      setVolume("1");
+      setMeasurementUnit("shot");
+      setAbv("40");
+    }
   }
 
   return (
@@ -81,6 +122,8 @@ const AddDrinkModal = ({
       onConfirm={addDrink}
     >
       <Tabs
+        selectedKey={drinkType}
+        onSelectionChange={handleDrinkSelect}
         aria-label="Options"
         variant="underlined"
         classNames={{
@@ -92,98 +135,42 @@ const AddDrinkModal = ({
         }}
       >
         <Tab
-          title={
-            <div className="flex items-center space-x-2 text-2xl">
-              <TbBeerFilled />
-              <span>Pint</span>
-            </div>
-          }
-        >
-          <div className="flex items-center gap-4 mb-4">
-            <DrinkInput
-              description="Amount of beer in ml"
-              value={pintVolume}
-              onChange={(value) => setPintVolume(value)}
-              suffix="ml"
-            />
-            <DrinkInput
-              description="Percentage of alcohol"
-              value={pintAbv}
-              onChange={(value) => setPintAbv(value)}
-              suffix="%"
-            />
-          </div>
-        </Tab>
+          key="pint"
+          title={<TabTitle tab={{ type: "pint", icon: TbBeerFilled }} />}
+        />
         <Tab
-          title={
-            <div className="flex items-center space-x-2 text-2xl">
-              <GiSodaCan />
-              <span>Can</span>
-            </div>
-          }
-        >
-          <div className="flex items-center gap-4 mb-4">
-            <DrinkInput
-              description="Amount of beer in ml"
-              value={canVolume}
-              onChange={(value) => setCanVolume(value)}
-              suffix="ml"
-            />
-            <DrinkInput
-              description="Percentage of alcohol"
-              value={canAbv}
-              onChange={(value) => setCanAbv(value)}
-              suffix="%"
-            />
-          </div>
-        </Tab>
+          key="can"
+          title={<TabTitle tab={{ type: "can", icon: GiSodaCan }} />}
+        />
         <Tab
-          title={
-            <div className="flex items-center space-x-2 text-2xl">
-              <FaWineGlassAlt />
-              <span>Glass </span>
-            </div>
-          }
-        >
-          <div className="flex items-center gap-4 mb-4">
-            <DrinkInput
-              description="Amount of wine in oz"
-              value={glassVolume}
-              onChange={(value) => setGlassVolume(value)}
-              suffix="oz"
-            />
-            <DrinkInput
-              description="Percentage of alcohol"
-              value={glassAbv}
-              onChange={(value) => setGlassAbv(value)}
-              suffix="%"
-            />
-          </div>
-        </Tab>
+          key="glass"
+          title={<TabTitle tab={{ type: "glass", icon: FaWineGlassAlt }} />}
+        />
         <Tab
-          title={
-            <div className="flex items-center space-x-2 text-2xl">
-              <LiaCocktailSolid />
-              <span>Shot</span>
-            </div>
-          }
-        >
-          <div className="flex items-center gap-4 mb-4">
-            <DrinkInput
-              description="# of shots in drink"
-              value={shotVolume}
-              onChange={(value) => setShotVolume(value)}
-              suffix={`shot${shotVolume === "1" ? "" : "s"}`}
-            />
-            <DrinkInput
-              description="Percentage of alcohol"
-              value={shotAbv}
-              onChange={(value) => setShotAbv(value)}
-              suffix="%"
-            />
-          </div>
-        </Tab>
+          key="shot"
+          title={<TabTitle tab={{ type: "shot", icon: LiaCocktailSolid }} />}
+        />
       </Tabs>
+      <div className="flex items-center gap-4 mb-4">
+        <DrinkInput
+          description={
+            drinkType === "glass"
+              ? "Amount of wine in oz"
+              : drinkType === "shot"
+              ? "# of shots"
+              : "Amount of beer in ml"
+          }
+          value={volume}
+          onChange={(value) => setVolume(value)}
+          suffix={measurementUnit}
+        />
+        <DrinkInput
+          description="Percentage of alcohol"
+          value={abv}
+          onChange={(value) => setAbv(value)}
+          suffix="%"
+        />
+      </div>
     </Modal>
   );
 };

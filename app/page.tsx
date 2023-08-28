@@ -7,11 +7,16 @@ import ProgressBar from "./_components/ProgressBar";
 
 export const revalidate = 0;
 
+export type DrinkType = "pint" | "can" | "glass" | "shot";
+export type MeasurementUnit = "ml" | "oz" | "shot";
+
 export interface Drink {
   id: string;
   units: number;
   volume: number;
   abv: number;
+  drink_type: DrinkType;
+  measurement_unit: MeasurementUnit;
   created_at: string;
 }
 
