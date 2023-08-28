@@ -43,7 +43,7 @@ const EditModal = ({
       .update({
         volume: numericVolume,
         abv: numericAbv,
-        units: calculateUnits(numericVolume, numericAbv),
+        units: calculateUnits(numericVolume, numericAbv, "ml"),
       })
       .eq("id", drink.id);
 
