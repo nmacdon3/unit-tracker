@@ -15,21 +15,14 @@ export interface Drink {
 }
 
 export default async function Home() {
-  // const dateToQuery = new Date();
-  // dateToQuery.setDate(dateToQuery.getDate() - new Date().getDay());
-  // console.log("🚀 ~ file: page.tsx:20 ~ Home ~ dateToQuery:", dateToQuery);
-  // dateToQuery.setHours(0, 0, 0, 0);
-
-  // ///query all drinks from last sunday until now
-  // const { data: drinks } = await supabase
-  //   .from("drinks")
-  //   .select()
-  //   .gte("created_at", dateToQuery)
-  //   .returns<Drink[]>();
+  const dateToQuery = new Date();
+  dateToQuery.setDate(dateToQuery.getDate() - new Date().getDay());
+  dateToQuery.setHours(0, 0, 0, 0);
 
   const { data: drinks } = await supabase
     .from("drinks")
     .select()
+    .gte("created_at", dateToQuery.toISOString())
     .returns<Drink[]>();
 
   const totalUnits = drinks?.reduce((acc, drink) => acc + drink.units, 0) ?? 0;
@@ -44,7 +37,7 @@ export default async function Home() {
   return (
     <>
       <ThisWeek drinks={drinks} />
-      <div className="flex flex-col items-center justify-center px-64 gap-6 h-screen -translate-y-12">
+      <div className="flex flex-col items-center justify-center px-64 gap-6 h-screen">
         <div className="text-stone-400 ">{`This week, you've had`}</div>
         <h1 className="text-6xl font-bold">{totalUnits.toFixed(1)} Units</h1>
         <ProgressBar value={totalUnits} />
