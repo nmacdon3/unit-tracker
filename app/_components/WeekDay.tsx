@@ -1,12 +1,9 @@
 "use client";
-import { Drink } from "../page";
 import classnames from "classnames";
-import {
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  Button,
-} from "@nextui-org/react";
+import { Popover, PopoverTrigger, PopoverContent } from "@nextui-org/react";
+
+import { Drink } from "../page";
+
 import Table from "./Table";
 
 const WEEK_DAYS = [

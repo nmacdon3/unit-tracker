@@ -1,7 +1,6 @@
 "use client";
 import classnames from "classnames";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const ProgressBar = ({ value }: { value: number }) => {
   const [show, setShow] = useState<boolean>(false);

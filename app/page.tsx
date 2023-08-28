@@ -1,4 +1,5 @@
 import supabase from "~/utils/supabase";
+
 import Table from "./_components/Table";
 import ThisWeek from "./_components/ThisWeek";
 import AddDrinkButton from "./_components/AddDrinkButton";

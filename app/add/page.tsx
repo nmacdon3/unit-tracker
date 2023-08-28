@@ -2,8 +2,9 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import supabase from "~/utils/supabase";
 import Link from "next/link";
+
+import supabase from "~/utils/supabase";
 
 function convertToNumber(value: string) {
   if (value === "") {

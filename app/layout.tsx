@@ -1,8 +1,9 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import classnames from "classnames";
-
 import { Caveat } from "next/font/google";
+import { ReactNode } from "react";
+
 import { Providers } from "./providers";
 import ProfileDropdown from "./_components/ProfileDropdown";
 import WelcomeBack from "./_components/WelcomeBack";
@@ -16,11 +17,7 @@ export const metadata: Metadata = {
   description: "Track your alcohol consumption",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html className="bg-stone-950 text-stone-50 dark" lang="en">
       <body

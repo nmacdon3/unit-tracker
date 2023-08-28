@@ -1,4 +1,5 @@
 import { Drink } from "../page";
+
 import Timestamp from "./Timestamp";
 
 const Table = ({ drinks }: { drinks: Drink[] }) => {
