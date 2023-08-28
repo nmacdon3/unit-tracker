@@ -23,8 +23,7 @@ export default function RootLayout({
   return (
     <html className="bg-stone-950 text-stone-50 dark" lang="en">
       <body
-        // style={{ overscrollBehavior: "none" }}
-        className={classnames(caveat.className, "text-3xl")}
+        className={classnames(caveat.className, "text-3xl overflow-x-hidden")}
       >
         <Providers>
           <header className="flex justify-between  py-4 px-4 sticky top-0 left-0">

@@ -15,6 +15,18 @@ export interface Drink {
 }
 
 export default async function Home() {
+  // const dateToQuery = new Date();
+  // dateToQuery.setDate(dateToQuery.getDate() - new Date().getDay());
+  // console.log("🚀 ~ file: page.tsx:20 ~ Home ~ dateToQuery:", dateToQuery);
+  // dateToQuery.setHours(0, 0, 0, 0);
+
+  // ///query all drinks from last sunday until now
+  // const { data: drinks } = await supabase
+  //   .from("drinks")
+  //   .select()
+  //   .gte("created_at", dateToQuery)
+  //   .returns<Drink[]>();
+
   const { data: drinks } = await supabase
     .from("drinks")
     .select()
@@ -32,15 +44,27 @@ export default async function Home() {
   return (
     <>
       <ThisWeek drinks={drinks} />
-      <div className="flex flex-col items-center justify-center px-64 gap-6 h-screen">
+      <div className="flex flex-col items-center justify-center px-64 gap-6 h-screen -translate-y-12">
         <div className="text-stone-400 ">{`This week, you've had`}</div>
         <h1 className="text-6xl font-bold">{totalUnits.toFixed(1)} Units</h1>
         <ProgressBar value={totalUnits} />
-        <div className="text-stone-400 flex items-center mb-20">Out of 14</div>
+        <div className="text-stone-400 flex items-center mb-20">
+          Out of 14 {totalUnits > 14 && <> &#129325;</>}
+        </div>
         <AddDrinkButton />
         <div className="text-stone-400 flex items-center">
-          {`You've got about`}{" "}
-          <b className="text-stone-200 mx-2">{beersLeft} beers</b>left!
+          {totalUnits <= 14 ? (
+            <>
+              {`You've got about`}{" "}
+              <b className="text-stone-200 mx-2">{beersLeft} beers</b>left!
+            </>
+          ) : (
+            <>
+              {`You're about`}{" "}
+              <b className="text-stone-200 mx-2">{-beersLeft} beers</b>over the
+              recommended amount.
+            </>
+          )}
         </div>
       </div>
 
