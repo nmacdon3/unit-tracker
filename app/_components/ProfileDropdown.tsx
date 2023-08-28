@@ -7,6 +7,13 @@ import {
   PopoverContent,
   Button,
 } from "@nextui-org/react";
+import { Roboto } from "next/font/google";
+import classnames from "classnames";
+
+const roboto = Roboto({
+  weight: "300",
+  subsets: ["latin"],
+});
 
 const ProfileDropdown = () => {
   return (
@@ -22,7 +29,9 @@ const ProfileDropdown = () => {
           />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="bg-stone-700 text-2xl mt-2">
+      <PopoverContent
+        className={classnames("bg-stone-700 text-lg mt-2", roboto.className)}
+      >
         <div>My Account</div>
         <div>Logout</div>
       </PopoverContent>
