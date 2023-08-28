@@ -38,7 +38,7 @@ const Modal = ({
               {title}
             </ModalHeader>
             <ModalBody>{children}</ModalBody>
-            <ModalFooter>
+            <ModalFooter className="gap-6">
               <Button className="text-2xl" variant="light" onPress={onClose}>
                 Cancel
               </Button>
