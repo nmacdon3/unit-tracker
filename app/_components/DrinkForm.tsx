@@ -8,6 +8,11 @@ import { TbBeerFilled } from "react-icons/tb";
 
 import { Drink, DrinkType, MeasurementUnit } from "../page";
 
+export const PINT_ICON = TbBeerFilled;
+export const CAN_ICON = GiSodaCan;
+export const GLASS_ICON = FaWineGlassAlt;
+export const SHOT_ICON = LiaCocktailSolid;
+
 export interface CreateDrink {
   volume: string;
   abv: string;

@@ -3,10 +3,27 @@ import { Button } from "@nextui-org/react";
 import { useState } from "react";
 import { FiEdit } from "react-icons/fi";
 
-import { Drink } from "../page";
+import { Drink, DrinkType } from "../page";
 
 import Timestamp from "./Timestamp";
 import EditDrinkModal from "./EditDrinkModal";
+import { CAN_ICON, GLASS_ICON, PINT_ICON, SHOT_ICON } from "./DrinkForm";
+
+const DrinkIcon = ({ drinkType }: { drinkType: DrinkType }) => {
+  return (
+    <div className="flex items-center justify-center bg-stone-700 rounded-lg h-10 w-10">
+      {drinkType === "pint" ? (
+        <PINT_ICON />
+      ) : drinkType === "can" ? (
+        <CAN_ICON />
+      ) : drinkType === "glass" ? (
+        <GLASS_ICON />
+      ) : (
+        <SHOT_ICON />
+      )}
+    </div>
+  );
+};
 
 const Table = ({ drinks }: { drinks: Drink[] }) => {
   const [drinkToEdit, setDrinkToEdit] = useState<Drink | undefined>(undefined);
@@ -20,19 +37,25 @@ const Table = ({ drinks }: { drinks: Drink[] }) => {
         <tbody>
           {drinks.map((drink) => (
             <tr key={drink.id} className=" group  ">
-              <td className="py-2 font-bold rounded-l-lg bg-stone-900 ">
-                {drink.units} Units
+              <td className="py-4 pl-4 font-bold rounded-l-lg bg-stone-900 ">
+                <div className="flex items-center">
+                  <DrinkIcon drinkType={drink.drink_type} />{" "}
+                  <span className="capitalize ml-4">{drink.drink_type}</span>
+                </div>
               </td>
-              <td className="py-2 text-stone-400 bg-stone-900 ">
+              <td className="py-4 text-stone-400 bg-stone-900 ">
                 {drink.volume}ml
               </td>
-              <td className="py-2 text-stone-400 bg-stone-900 ">
+              <td className="py-4 text-stone-400 bg-stone-900 ">
                 {drink.abv}%
               </td>
-              <td className="py-2 text-stone-400 bg-stone-900 ">
+              <td className="py-4 text-stone-400 bg-stone-900 ">
                 <Timestamp date={drink.created_at} />
               </td>
-              <td className="py-2 w-full flex justify-end bg-stone-900 rounded-r-lg ">
+              <td className="py-4 font-bold  bg-stone-900 ">
+                {drink.units} Units
+              </td>
+              <td className="py-4 w-full flex justify-end bg-stone-900 rounded-r-lg ">
                 <Button
                   onPress={() => setDrinkToEdit(drink)}
                   variant="light"

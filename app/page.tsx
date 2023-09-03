@@ -68,7 +68,7 @@ export default async function Home() {
       </div>
 
       <div className="px-20 mb-40">
-        <h2 className="pb-2">History</h2>
+        <h2>History</h2>
         <Table drinks={drinks} />
       </div>
     </>
