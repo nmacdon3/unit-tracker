@@ -15,12 +15,14 @@ const Modal = ({
   isOpen,
   onClose,
   onConfirm,
+  noButtons,
   children,
 }: {
   title: string;
   isOpen: boolean;
   onClose: () => void;
-  onConfirm: () => void;
+  onConfirm?: () => void;
+  noButtons?: boolean;
   children: ReactNode;
 }) => {
   return (
@@ -38,20 +40,22 @@ const Modal = ({
               {title}
             </ModalHeader>
             <ModalBody>{children}</ModalBody>
-            <ModalFooter className="gap-6">
-              <Button className="text-2xl" variant="light" onPress={onClose}>
-                Cancel
-              </Button>
-              <Button
-                className="bg-teal-500 text-2xl"
-                onPress={() => {
-                  onConfirm();
-                  onClose();
-                }}
-              >
-                Confirm
-              </Button>
-            </ModalFooter>
+            {!noButtons && (
+              <ModalFooter className="gap-6">
+                <Button className="text-2xl" variant="light" onPress={onClose}>
+                  Cancel
+                </Button>
+                <Button
+                  className="bg-teal-500 text-2xl"
+                  onPress={() => {
+                    if (onConfirm) onConfirm();
+                    onClose();
+                  }}
+                >
+                  Confirm
+                </Button>
+              </ModalFooter>
+            )}
           </>
         )}
       </ModalContent>
