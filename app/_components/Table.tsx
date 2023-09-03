@@ -1,70 +1,12 @@
 "use client";
-
 import { Button } from "@nextui-org/react";
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { FiEdit } from "react-icons/fi";
-
-import { convertToNumber, calculateUnits } from "~/utils";
-import supabase from "~/utils/supabase";
 
 import { Drink } from "../page";
 
-import Modal from "./Modal";
 import Timestamp from "./Timestamp";
-
-const EditModal = ({
-  drink,
-  onClose,
-}: {
-  drink: Drink | undefined;
-  onClose: () => void;
-}) => {
-  const router = useRouter();
-
-  const [volume, setVolume] = useState<string>();
-  const [abv, setAbv] = useState<string>();
-
-  useEffect(() => {
-    if (!drink) return;
-
-    setVolume(drink.volume.toString());
-    setAbv(drink.abv.toString());
-  }, [drink]);
-
-  async function updateDrink() {
-    if (!drink) return;
-
-    const numericVolume = convertToNumber(volume!);
-    const numericAbv = convertToNumber(abv!);
-
-    await supabase
-      .from("drinks")
-      .update({
-        volume: numericVolume,
-        abv: numericAbv,
-        units: calculateUnits(numericVolume, numericAbv, "ml"),
-      })
-      .eq("id", drink.id);
-
-    router.refresh();
-    onClose();
-  }
-
-  return (
-    <Modal
-      title="Edit Drink"
-      isOpen={!!drink}
-      onClose={onClose}
-      onConfirm={updateDrink}
-    >
-      <div className="flex flex-col gap-2">
-        <input value={volume} onChange={(e) => setVolume(e.target.value)} />
-        <input value={abv} onChange={(e) => setAbv(e.target.value)} />
-      </div>
-    </Modal>
-  );
-};
+import EditDrinkModal from "./EditDrinkModal";
 
 const Table = ({ drinks }: { drinks: Drink[] }) => {
   const [drinkToEdit, setDrinkToEdit] = useState<Drink | undefined>(undefined);
@@ -94,8 +36,8 @@ const Table = ({ drinks }: { drinks: Drink[] }) => {
           ))}
         </tbody>
       </table>
-      <EditModal
-        drink={drinkToEdit}
+      <EditDrinkModal
+        drinkToEdit={drinkToEdit}
         onClose={() => setDrinkToEdit(undefined)}
       />
     </>
