@@ -13,17 +13,26 @@ const Table = ({ drinks }: { drinks: Drink[] }) => {
 
   return (
     <>
-      <table className="w-full border-t border-stone-500">
+      <table
+        style={{ borderCollapse: "separate", borderSpacing: "0 10px" }}
+        className="w-full"
+      >
         <tbody>
           {drinks.map((drink) => (
-            <tr key={drink.id} className="flex justify-between group">
-              <td className="py-2 font-bold">{drink.units} Units</td>
-              <td className="py-2 text-stone-400">{drink.volume}ml</td>
-              <td className="py-2 text-stone-400">{drink.abv}%</td>
-              <td className="py-2 text-stone-400">
+            <tr key={drink.id} className=" group  ">
+              <td className="py-2 font-bold rounded-l-lg bg-stone-900 ">
+                {drink.units} Units
+              </td>
+              <td className="py-2 text-stone-400 bg-stone-900 ">
+                {drink.volume}ml
+              </td>
+              <td className="py-2 text-stone-400 bg-stone-900 ">
+                {drink.abv}%
+              </td>
+              <td className="py-2 text-stone-400 bg-stone-900 ">
                 <Timestamp date={drink.created_at} />
               </td>
-              <td className="py-2">
+              <td className="py-2 w-full flex justify-end bg-stone-900 rounded-r-lg ">
                 <Button
                   onPress={() => setDrinkToEdit(drink)}
                   variant="light"
