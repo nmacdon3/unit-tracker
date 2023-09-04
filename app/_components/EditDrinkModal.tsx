@@ -28,9 +28,10 @@ const EditDrinkModal = ({
       .update({
         volume: numericVolume,
         abv: numericAbv,
-        units: calculateUnits(numericVolume, numericAbv, "ml"),
+        units: calculateUnits(numericVolume, numericAbv, drink.measurementUnit),
         drink_type: drink.drinkType,
         measurement_unit: drink.measurementUnit,
+        created_at: drink.createdAt,
       })
       .eq("id", drinkToEdit.id);
 

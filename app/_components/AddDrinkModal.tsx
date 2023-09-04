@@ -25,6 +25,7 @@ const AddDrinkModal = ({
       units: calculateUnits(numericVolume, numericAbv, drink.measurementUnit),
       drink_type: drink.drinkType,
       measurement_unit: drink.measurementUnit,
+      created_at: drink.createdAt,
     });
 
     router.refresh();

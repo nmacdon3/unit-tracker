@@ -18,6 +18,7 @@ export interface CreateDrink {
   abv: string;
   drinkType: DrinkType;
   measurementUnit: MeasurementUnit;
+  createdAt: Date;
 }
 
 const TabTitle = ({
@@ -77,6 +78,10 @@ const DrinkForm = ({
   onSubmit: (drink: CreateDrink) => void;
   onClose: () => void;
 }) => {
+  const [createdAt, setCreatedAt] = useState<Date>(
+    new Date(initDrink?.created_at ?? new Date())
+  );
+
   const [volume, setVolume] = useState<string>(
     convertNumberToString(initDrink?.volume) ?? "473"
   );
@@ -116,6 +121,18 @@ const DrinkForm = ({
 
   return (
     <>
+      <Input
+        type="date"
+        value={createdAt.toISOString().split("T")[0]}
+        onValueChange={(val) => setCreatedAt(new Date(val))}
+        variant="bordered"
+        classNames={{
+          input: ["text-xl", "bg-transparent", "text-stone-400"],
+          innerWrapper: "bg-transparent",
+        }}
+        className="absolute bottom-5 left-6 w-40 "
+      />
+
       <Tabs
         selectedKey={drinkType}
         onSelectionChange={handleDrinkSelect}
@@ -178,6 +195,7 @@ const DrinkForm = ({
               abv,
               drinkType,
               measurementUnit,
+              createdAt,
             });
             onClose();
           }}
