@@ -17,6 +17,7 @@ import EditDrinkModal from "./EditDrinkModal";
 import { CAN_ICON, GLASS_ICON, PINT_ICON, SHOT_ICON } from "./DrinkForm";
 import classnames from "classnames";
 import { Roboto } from "next/font/google";
+import DeleteDrinkModal from "./DeleteDrinkModal";
 
 const roboto = Roboto({
   weight: "300",
@@ -41,6 +42,9 @@ const DrinkIcon = ({ drinkType }: { drinkType: DrinkType }) => {
 
 const Table = ({ drinks }: { drinks: Drink[] }) => {
   const [drinkToEdit, setDrinkToEdit] = useState<Drink | undefined>(undefined);
+  const [drinkToDeleteId, setDrinkToDeleteId] = useState<string | undefined>(
+    undefined
+  );
 
   return (
     <>
@@ -73,11 +77,10 @@ const Table = ({ drinks }: { drinks: Drink[] }) => {
                 </div>
               </td>
 
-              <td className="py-3 w-full flex justify-end bg-stone-900 rounded-r-lg ">
+              <td className="py-3  bg-stone-900 rounded-r-lg ">
                 <Popover placement="bottom-end">
                   <PopoverTrigger>
                     <Button
-                      // onPress={() => setDrinkToEdit(drink)}
                       variant="light"
                       className="text-xl text-stone-50 invisible group-hover:visible animate-pulse min-w-0 rounded-full"
                     >
@@ -97,7 +100,7 @@ const Table = ({ drinks }: { drinks: Drink[] }) => {
                       <FiEdit className="mr-3" /> Edit Drink
                     </Button>
                     <Button
-                      onPress={() => setDrinkToEdit(drink)}
+                      onPress={() => setDrinkToDeleteId(drink.id)}
                       className="flex items-center text-lg bg-transparent  hover:text-teal-500 mt-3"
                     >
                       <BsTrash3Fill className="mr-3" /> Remove Drink
@@ -112,6 +115,10 @@ const Table = ({ drinks }: { drinks: Drink[] }) => {
       <EditDrinkModal
         drinkToEdit={drinkToEdit}
         onClose={() => setDrinkToEdit(undefined)}
+      />
+      <DeleteDrinkModal
+        drinkToDeleteId={drinkToDeleteId}
+        onClose={() => setDrinkToDeleteId(undefined)}
       />
     </>
   );
