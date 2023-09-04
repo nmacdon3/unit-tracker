@@ -43,7 +43,7 @@ export default async function Home() {
   return (
     <>
       <ThisWeek drinks={drinks} />
-      <div className="flex flex-col items-center justify-center px-64 gap-6 h-screen">
+      <div className="flex flex-col items-center justify-center lg:px-64 px-4 gap-6 h-screen">
         <div className="text-stone-400 ">{`This week, you've had`}</div>
         <h1 className="text-6xl font-bold">{totalUnits.toFixed(1)} Units</h1>
         <ProgressBar value={totalUnits} />
@@ -67,7 +67,7 @@ export default async function Home() {
         </div>
       </div>
 
-      <div className="px-20 mb-40">
+      <div className="lg:px-20 px-4 mb-40">
         <h2>History</h2>
         <Table drinks={drinks} />
       </div>

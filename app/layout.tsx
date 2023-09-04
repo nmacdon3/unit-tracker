@@ -19,12 +19,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html className="bg-stone-950 text-stone-50 dark" lang="en">
+    <html className="bg-stone-950 text-stone-50  dark" lang="en">
       <body
-        className={classnames(caveat.className, "text-3xl overflow-x-hidden")}
+        className={classnames(
+          caveat.className,
+          "lg:text-3xl text-2xl overflow-x-hidden "
+        )}
       >
         <Providers>
-          <header className="flex justify-between  py-4 px-4 sticky top-0 left-0">
+          <header className="flex justify-between  py-4 px-4 sticky top-0 left-0  w-screen">
             <div></div>
             <div className="flex items-center gap-6">
               <WelcomeBack />
