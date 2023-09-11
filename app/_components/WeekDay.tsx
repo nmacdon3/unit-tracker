@@ -29,12 +29,12 @@ const WeekDay = ({ day, drinks }: { day: WeekDayType; drinks: Drink[] }) => {
   );
 
   return (
-    <Popover key={day} placement="bottom">
+    <Popover key={day} placement="bottom" shouldCloseOnBlur>
       <PopoverTrigger disabled={daysAgo < 0}>
         <button
           disabled={daysAgo < 0}
           className={classnames(
-            "w-10 h-10 border  rounded text-lg flex items-center justify-center relative font-bold",
+            "md:w-10 md:h-10 h-9 w-9 border  rounded text-lg flex items-center justify-center relative font-bold",
             isPast
               ? filteredDrinks.length > 0
                 ? "border-orange-200 text-orange-200"
@@ -52,7 +52,7 @@ const WeekDay = ({ day, drinks }: { day: WeekDayType; drinks: Drink[] }) => {
           )}
         </button>
       </PopoverTrigger>
-      <PopoverContent className="bg-stone-800 text-2xl w-[45rem] flex flex-column items-start mt-2">
+      <PopoverContent className="bg-stone-800 text-2xl md:w-[45rem] w-full flex flex-column items-start mt-2">
         <h4 className="font-3xl">
           {day} ({filteredDrinks.length} drinks)
         </h4>

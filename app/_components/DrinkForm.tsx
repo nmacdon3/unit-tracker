@@ -57,7 +57,7 @@ const DrinkInput = ({
       className="w-1/2"
       classNames={{
         input: ["text-3xl", "text-right"],
-        description: "text-2xl",
+        description: "text-2xl invisible md:visible",
       }}
       size="lg"
     />
@@ -183,7 +183,7 @@ const DrinkForm = ({
           suffix="%"
         />
       </div>
-      <div className="flex items-center justify-end gap-6 py-3">
+      <div className="flex items-center justify-end gap-3 md:gap-6 py-3">
         <Button className="text-2xl" variant="light" onPress={onClose}>
           Cancel
         </Button>

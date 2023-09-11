@@ -28,7 +28,7 @@ const Modal = ({
   return (
     <DefaultModal
       isDismissable={false}
-      className="z-50 relative"
+      className="z-50 relative  w-full md:w-auto rounded-none md:rounded-lg"
       backdrop={"blur"}
       isOpen={isOpen}
       onClose={onClose}
@@ -41,7 +41,7 @@ const Modal = ({
             </ModalHeader>
             <ModalBody>{children}</ModalBody>
             {!noButtons && (
-              <ModalFooter className="gap-6">
+              <ModalFooter className="gap-3 md:gap-6">
                 <Button className="text-2xl" variant="light" onPress={onClose}>
                   Cancel
                 </Button>

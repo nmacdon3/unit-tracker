@@ -26,15 +26,15 @@ const roboto = Roboto({
 
 const DrinkIcon = ({ drinkType }: { drinkType: DrinkType }) => {
   return (
-    <div className="flex items-center justify-center bg-stone-700 rounded-lg h-14 w-14">
+    <div className="flex items-center justify-center bg-stone-700 rounded-lg md:h-14 md:w-14 h-7 w-7">
       {drinkType === "pint" ? (
-        <PINT_ICON className="h-10 w-10" />
+        <PINT_ICON className="md:h-10 md:w-10 h-5 w-5" />
       ) : drinkType === "can" ? (
-        <CAN_ICON className="h-10 w-10" />
+        <CAN_ICON className="md:h-10 md:w-10 h-5 w-5" />
       ) : drinkType === "glass" ? (
-        <GLASS_ICON className="h-10 w-10" />
+        <GLASS_ICON className="md:h-10 md:w-10 h-5 w-5" />
       ) : (
-        <SHOT_ICON className="h-10 w-10" />
+        <SHOT_ICON className="md:h-10 md:w-10 h-5 w-5" />
       )}
     </div>
   );
@@ -60,17 +60,23 @@ const Table = ({ drinks }: { drinks: Drink[] }) => {
                   <DrinkIcon drinkType={drink.drink_type} />{" "}
                   <span className="capitalize ml-4">
                     {drink.drink_type}
-                    <div className="text-xl text-stone-400">
+                    <div className="text-xl text-stone-400 h-0 w-0 invisible md:w-auto md:h-auto md:visible">
                       <Timestamp date={drink.created_at} />
                     </div>
                   </span>
                 </div>
               </td>
               <td className="py-3 text-stone-400 bg-stone-900 ">
-                <div className="flex items-center gap-3">
-                  {drink.volume}
-                  {drink.measurement_unit} <BsDot className="h-6 w-6" />{" "}
-                  {drink.abv}% <BsDot className="h-6 w-6" />{" "}
+                <div className="flex items-center  gap-3">
+                  <span className="w-0 h-0 invisible md:w-auto md:h-auto md:visible">
+                    {drink.volume}
+                    {drink.measurement_unit}
+                  </span>{" "}
+                  <BsDot className="h-6 w-6 invisible md:visible" />
+                  <span className="w-0 h-0 invisible md:w-auto md:h-auto md:visible">
+                    {drink.abv}%{" "}
+                  </span>
+                  <BsDot className="h-6 w-6 invisible md:visible" />{" "}
                   <span className="text-stone-50">
                     {drink.units.toFixed(1)} Units
                   </span>
@@ -78,11 +84,11 @@ const Table = ({ drinks }: { drinks: Drink[] }) => {
               </td>
 
               <td className="py-3  bg-stone-900 rounded-r-lg ">
-                <Popover placement="bottom-end">
+                <Popover placement="bottom-end" shouldCloseOnBlur>
                   <PopoverTrigger>
                     <Button
                       variant="light"
-                      className="text-xl text-stone-50 invisible group-hover:visible animate-pulse min-w-0 rounded-full"
+                      className="text-xl text-stone-50 visible md:invisible group-hover:visible md:animate-pulse min-w-0 rounded-full"
                     >
                       <BsThreeDots />
                     </Button>

@@ -19,7 +19,7 @@ const ProfileDropdown = () => {
   return (
     <Popover placement="bottom-end">
       <PopoverTrigger>
-        <Button className="w-12 h-12 min-w-0 bg-transparent p-1 border border-stone-50 rounded-full flex justify-center align-items-center">
+        <Button className="md:w-12 md:h-12 h-10 w-10 min-w-0 bg-transparent p-1 border border-stone-50 rounded-full flex justify-center align-items-center">
           <Image
             src="/profile.png"
             alt="logo"

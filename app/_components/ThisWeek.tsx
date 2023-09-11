@@ -13,7 +13,6 @@ const WEEK_DAYS = [
 ] as const;
 
 const ThisWeek = ({ drinks }: { drinks: Drink[] }) => {
-  //variable for how many days there are left in the week
   const daysLeft = 7 - new Date().getDay();
 
   return (
@@ -23,7 +22,9 @@ const ThisWeek = ({ drinks }: { drinks: Drink[] }) => {
         {WEEK_DAYS.map((day) => (
           <WeekDay key={day} day={day} drinks={drinks} />
         ))}
-        <div className="text-2xl text-stone-400">{daysLeft} days left</div>
+        <div className="text-2xl text-stone-400 md:visible invisible">
+          {daysLeft} days left
+        </div>
       </div>
     </div>
   );
